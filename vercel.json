@@ -1,15 +1,10 @@
 {
     "version": 2,
+    "name": "sample-webhook",
     "builds": [
-      {
-        "src": "server.js",
-        "use": "@now/node"
-      }
+      { "src": "app.js", "use": "@vercel/node" }
     ],
     "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "server.js"
-      }
+      { "src": "/(.*)", "dest": "/app.js" }
     ]
   }

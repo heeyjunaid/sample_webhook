@@ -1,48 +1,31 @@
-"use strict";
-
-const express = require("express");
-const bodyParser = require("body-parser");
-const expressWinston = require("express-winston");
-const helmet = require("helmet");
-var cors = require('cors')
-
-const {verifyuser, availableAppointments, sendMessage, putInServer} = require("./webhook")
-
-
-let app = express();
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const port = process.env.PORT || 3000;
+const {verifyuser} = require('./webhook');
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(helmet());
-app.use(cors())
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 
-let router = express.Router();
+app.get('/', (req, res) => {
+  res.json({'message': 'ok'});
+})
 
-router.get("/healthcheck", (req, res) => {
-    res.status(200).json({ "message": "ok" });
+app.use('/verifyuser', verifyuser);
+
+/* Error handler middleware */
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  console.error(err.message, err.stack);
+  res.status(statusCode).json({'message': err.message});
+  
+  return;
 });
 
-
-router.get("/", (req, res) => {
-    res.status(200).json({ "on vercel": true });
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Example app listening at http://localhost:${port}`)
 });
-
-
-router.post("/verifyuser", verifyuser)
-router.get("/available_appointments", availableAppointments)
-router.post("/send_message", sendMessage)
-router.put("/putInServer", putInServer)
-
-
-
-
-
-expressWinston.requestWhitelist.push("body");
-expressWinston.responseWhitelist.push("body");
-
-
-app.use("/", router);
-
-
-
-module.exports = app;
