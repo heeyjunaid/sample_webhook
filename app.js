@@ -5,7 +5,7 @@ const cors = require('cors')
 const app = express();
 const port = process.env.PORT || 3000;
 
-const {verifyuser} = require('./webhook');
+const {verifyuser, updatedetails} = require('./webhook');
 
 app.use(cors())
 app.use(bodyParser.json());
@@ -20,6 +20,8 @@ app.get('/', (req, res) => {
 })
 
 app.use('/verifyuser', verifyuser);
+app.use('/updatedetails', updatedetails);
+
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {
@@ -29,6 +31,7 @@ app.use((err, req, res, next) => {
   
   return;
 });
+
 
 app.listen(port, '0.0.0.0', () => {
   console.log(`Example app listening at http://localhost:${port}`)

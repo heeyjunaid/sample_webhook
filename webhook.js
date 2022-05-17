@@ -31,31 +31,8 @@ const verifyuser = (req, res, err) => {
 }
 
 
-const availableAppointments = (req, res, err) => {
 
-    res.status(200).json({
-        "available_time_slots": [
-            "12:30 PM",
-            "5:00 PM",
-            "7:00 PM"
-        ]
-    })
-
-}
-
-
-
-const sendMessage = (req, res, err) =>{
-    res.status(200).json({
-        "success": true
-    })
-}
-
-
-
-const putInServer = (req, res, err) =>{
-    console.log(req.body)
-
+const updatedetails = (req, res, err) => {
     res.status(200).json({
         "success": true
     })
@@ -65,5 +42,4 @@ const putInServer = (req, res, err) =>{
 
 
 
-
-module.exports = { verifyuser, availableAppointments, sendMessage, putInServer}
+module.exports = { verifyuser, updatedetails}
