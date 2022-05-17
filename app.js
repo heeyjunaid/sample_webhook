@@ -23,6 +23,11 @@ router.get("/healthcheck", (req, res) => {
 });
 
 
+router.get("/", (req, res) => {
+    res.status(200).json({ "on vercel": true });
+});
+
+
 router.post("/verifyuser", verifyuser)
 router.get("/available_appointments", availableAppointments)
 router.post("/send_message", sendMessage)
