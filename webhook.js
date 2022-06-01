@@ -15,13 +15,15 @@ const verifyuser = (req, res, err) => {
         if (userDetails.otp == '8213') {
             res.status(200).json({
                 "success": true,
-                "verified": true
+                "verified": true,
+                "is_fraud": false
             })
         }
         else {
             res.status(200).json({
                 "success": true,
-                "verified": false
+                "verified": false,
+                "is_fraud": true
             })
         }
 
