@@ -23,7 +23,7 @@ const verifyuser = (req, res, err) => {
             res.status(200).json({
                 "success": true,
                 "verified": false,
-                "is_fraud": true
+                "is_fraud": false
             })
         }
 
